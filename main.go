@@ -3,29 +3,53 @@ package main
 import "fmt"
 
 func main() {
-	var secondNumber float64
-	var firstNumber float64
-	var operation string
-	var result float64
-	fmt.Println("Hi. This is calculator\n Choose your First Number to take math operation")
-	fmt.Scan(&firstNumber)
-	fmt.Println("What is your Second Number?")
-	fmt.Scan(&secondNumber)
-	fmt.Println("Choose operation?")
-	fmt.Scan(&operation)
-	switch operation {
-	case "+":
-		result = firstNumber + secondNumber
-	case "-":
-		result = firstNumber - secondNumber
-	case "*":
-		result = firstNumber * secondNumber
-	case "/":
-		if secondNumber == 0 {
-			fmt.Println("You can't divide to zero!")
-			break
+	for again := true; again; {
+		var firstNumber, secondNumber, result float64
+		var operation, continueInput string
+		fmt.Println("Hi. This is calculator\nChoose your First Number to take math operation")
+		if _, err := fmt.Scan(&firstNumber); err != nil {
+			fmt.Println("Error reading input:", err.Error())
+			continue
 		}
-		result = firstNumber / secondNumber
+		fmt.Println("What is your Second Number?")
+		if _, err := fmt.Scan(&secondNumber); err != nil {
+			fmt.Println("Error reading input:", err.Error())
+			continue
+		}
+		fmt.Print("Choose operation (+, -, *, /): ")
+		if _, err := fmt.Scan(&operation); err != nil {
+			fmt.Println("Error reading operation:", err.Error())
+			continue
+		}
+		switch operation {
+		case "+":
+			result = firstNumber + secondNumber
+		case "-":
+			result = firstNumber - secondNumber
+		case "*":
+			result = firstNumber * secondNumber
+		case "/":
+			if secondNumber == 0 {
+				fmt.Println("You can't divide to zero!")
+				continue
+			}
+			result = firstNumber / secondNumber
+		default:
+			fmt.Println("Invalid operation")
+			continue
+		}
+		fmt.Println("Result is:", result)
+		fmt.Print("Again (y/n)?:")
+		fmt.Scan(&continueInput)
+		switch continueInput {
+		case "y":
+			again = true
+		case "n":
+			again = false
+		default:
+			fmt.Println("Incorrect value")
+			again = false
+		}
 	}
-	fmt.Println(result)
+
 }
