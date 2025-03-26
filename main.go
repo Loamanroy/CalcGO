@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 )
 
@@ -22,7 +23,7 @@ func main() {
 			bufio.NewReader(os.Stdin).ReadString('\n')
 			continue
 		}
-		fmt.Print("Choose operation (+, -, *, /): ")
+		fmt.Print("Choose operation (+, -, *, /, ^, %, sqrt): ")
 		if _, err := fmt.Scan(&operation); err != nil {
 			fmt.Println("Error reading operation:", err.Error())
 			bufio.NewReader(os.Stdin).ReadString('\n')
@@ -41,6 +42,14 @@ func main() {
 				continue
 			}
 			result = firstNumber / secondNumber
+		case "^":
+			result = math.Pow(firstNumber, secondNumber)
+		case "%":
+			result = float64(int32(firstNumber) % int32(secondNumber))
+		case "sqrt":
+			fmt.Println("You are chose sqrt operation, so your secondNumber was reduced to 0")
+			result = math.Sqrt(firstNumber)
+			secondNumber = 0
 		default:
 			fmt.Println("Invalid operation")
 			continue
