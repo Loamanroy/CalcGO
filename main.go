@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main() {
 	for again := true; again; {
@@ -9,16 +13,19 @@ func main() {
 		fmt.Println("Hi. This is calculator\nChoose your First Number to take math operation")
 		if _, err := fmt.Scan(&firstNumber); err != nil {
 			fmt.Println("Error reading input:", err.Error())
+			bufio.NewReader(os.Stdin).ReadString('\n')
 			continue
 		}
 		fmt.Println("What is your Second Number?")
 		if _, err := fmt.Scan(&secondNumber); err != nil {
 			fmt.Println("Error reading input:", err.Error())
+			bufio.NewReader(os.Stdin).ReadString('\n')
 			continue
 		}
 		fmt.Print("Choose operation (+, -, *, /): ")
 		if _, err := fmt.Scan(&operation); err != nil {
 			fmt.Println("Error reading operation:", err.Error())
+			bufio.NewReader(os.Stdin).ReadString('\n')
 			continue
 		}
 		switch operation {
